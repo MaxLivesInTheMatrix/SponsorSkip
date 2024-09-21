@@ -1,0 +1,29 @@
+{
+    "manifest_version": 3,
+    "name": "Sponsor Skip",
+    "description": "An extension to skip sponsor segments in YouTube videos by detecting phrases in transcripts.",
+    "version": "1.0",
+    "action": {
+      "default_popup": "hello.html",
+      "default_icon": "hello_extensions.png"
+    },
+    "permissions": [
+      "activeTab",
+      "scripting",
+      "storage",
+      "https://www.youtube.com/*"
+    ],
+    "host_permissions": [
+      "https://www.youtube.com/*"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://www.youtube.com/*"],
+        "js": ["contentScript.js"]
+      }
+    ]
+  }
+  
