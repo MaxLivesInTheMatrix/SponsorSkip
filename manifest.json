@@ -10,19 +10,18 @@
     "permissions": [
       "activeTab",
       "scripting",
-      "storage",
-      "https://www.youtube.com/*"
+      "storage"
     ],
-    "host_permissions": [
-      "https://www.youtube.com/*"
-    ],
+    "host_permissions": ["https://www.youtube.com/*"],
     "background": {
-      "service_worker": "background.js"
+      "service_worker": "background.js",
+      "type": "module"
     },
     "content_scripts": [
       {
         "matches": ["https://www.youtube.com/*"],
-        "js": ["contentScript.js"]
+        "js": ["contentScript.js"],
+        "type": "module"
       }
     ]
   }
