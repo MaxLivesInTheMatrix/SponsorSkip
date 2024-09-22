@@ -1,6 +1,7 @@
 let timeRanges = [
     { startTime: 10, endTime: 15 },
-    { startTime: 30, endTime: 35 }
+    { startTime: 30, endTime: 35 },
+    { startTime: 43, endTime: 90 }
 ];
     
 function waitForYouTubeVideo() {
@@ -24,7 +25,6 @@ function autoSkipVideo(video, ranges) {
     console.log("Adding timeupdate event listener to YouTube video...");
 
     video.addEventListener('timeupdate', () => {
-    console.log('transcriptEnabled state is:', data.transcriptEnabled || 'undefined');
     console.log(`Current video time: ${video.currentTime}`);
 
     ranges.forEach(({ startTime, endTime }) => {
