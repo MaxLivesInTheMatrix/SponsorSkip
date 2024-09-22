@@ -10,9 +10,11 @@
     "permissions": [
       "activeTab",
       "scripting",
-      "storage"
+      "storage",
+      "webRequest",
+      "webRequestBlocking"
     ],
-    "host_permissions": ["https://www.youtube.com/*"],
+    "host_permissions": ["https://www.youtube.com/*", "http://localhost/*", "http://127.0.0.1/*"],
     "background": {
       "service_worker": "background.js",
       "type": "module"
