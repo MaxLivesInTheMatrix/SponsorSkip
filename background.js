@@ -37,9 +37,9 @@ async function fetchTranscript(videoId) {
   }
 }
 
-async function sendTranscriptToAPI(transcriptList) {
+async function sendTranscriptToAPI(transcriptList, retryCount = 0) {
     try {
-        //console.log("Sending transcript to API...");
+        console.log("Sending transcript to API...");
         const response = await fetch("http://127.0.0.1:5000", {
             method: 'POST',
             headers: {
@@ -53,16 +53,24 @@ async function sendTranscriptToAPI(transcriptList) {
         }
 
         const rawResponse = await response.json();
-        //console.log("Raw response:", rawResponse);
+        console.log("Raw response:", rawResponse);
 
-        if (rawResponse.times) {
+        if (rawResponse.times && rawResponse.times.length > 0) {
             timeArrays = rawResponse.times;
-            //console.log("Time Arrays from API:", timeArrays);
+            console.log("Time Arrays from API:", timeArrays);
+            chrome.storage.sync.set({ times: timeArrays }, () => {
+                console.log('Times saved to storage.');
+            });
+        } else {
+            if (retryCount < 3) {
+                console.warn(`Empty time array. Retrying... (${retryCount + 1}/3)`);
+                await sendTranscriptToAPI(transcriptList, retryCount + 1);
+            } else {
+                console.error('Failed to get valid time arrays after 3 attempts.');
+            }
         }
 
-        chrome.storage.sync.set({ times: timeArrays }, () => {});
-
-        //console.log('Transcript successfully sent to API:', rawResponse);
+        console.log('Transcript successfully sent to API:', rawResponse);
     } catch (error) {
         console.error('Error sending transcript to API:', error);
     }
