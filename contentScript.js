@@ -3,7 +3,11 @@ let timeRanges = [
     { startTime: 30, endTime: 35 },
     { startTime: 43, endTime: 90 }
 ];
-    
+
+chrome.storage.sync.get('transcriptEnabled', (data) => {
+    console.log("Global state retrieved from sync storage:", data.transcriptEnabled);
+  });
+
 function waitForYouTubeVideo() {
     return new Promise((resolve) => {
     const observer = new MutationObserver((mutations) => {

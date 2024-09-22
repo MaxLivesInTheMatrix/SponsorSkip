@@ -20,6 +20,8 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   }
 });
 
+chrome.storage.sync.set({ transcriptEnabled: false }, () => {});
+
 async function fetchTranscript(videoId) {
   try {
     const transcript = await YoutubeTranscript.fetchTranscript(videoId);

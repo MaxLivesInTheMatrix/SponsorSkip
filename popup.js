@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateStatusText(isEnabled);
   
         if (isEnabled) {
-          console.log('Fetching transcript...');
+          console.log('Fetching transcript..');
         } else {
           console.log('Transcript fetching disabled.');
         }
