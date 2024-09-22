@@ -1,5 +1,21 @@
+<!DOCTYPE html>
 <html>
-  <body>
-    <h1>Hello Extensions</h1>
-  </body>
+<head>
+  <title>YouTube Transcript Toggle</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body style="width: 500px;">
+  <div id="card">
+    <h1>Sponsor Skip</h1>
+    
+    <label class="switch">
+      <input type="checkbox" id="toggle-transcript">
+      <span class="slider round"></span>
+    </label>
+    
+    <p id="status-text">Turn ON to fetch the transcript.</p>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
 </html>
