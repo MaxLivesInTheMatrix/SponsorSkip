@@ -55,10 +55,11 @@ async function sendTranscriptToAPI(transcriptList, retryCount = 0) {
         const rawResponse = await response.json();
         console.log("Raw response:", rawResponse);
 
-        if (rawResponse.times && rawResponse.times.length > 0) {
+        if (rawResponse.times && rawResponse.times.length > 0 && rawResponse.sentiment && rawResponse.sentiment.length > 0) {
             timeArrays = rawResponse.times;
             console.log("Time Arrays from API:", timeArrays);
-            chrome.storage.sync.set({ times: timeArrays }, () => {
+            sentimentArray = rawResponse.sentiment
+            chrome.storage.sync.set({ times: timeArrays, sentiment: sentimentArray}, () => {
                 console.log('Times saved to storage.');
             });
         } else {
