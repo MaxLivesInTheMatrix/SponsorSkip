@@ -4,6 +4,8 @@ import requests
 import os
 import re
 from dotenv import load_dotenv
+from utils.sentiment_agent import get_sentiment
+from utils.toolhouse_memory import save_to_memory
 
 env_path = "./.env"
 
@@ -30,6 +32,8 @@ def process_request():
     try:
         data = request.get_json()
         transcript = data.get('transcript', [])
+        # Toolhouse save to memory
+        save_to_memory(transcript)
         user_prompt = "\n".join([f"{item['offset']} {item['text']}" for item in transcript])
     except (TypeError, KeyError):
         return "Invalid JSON format", 400
@@ -57,8 +61,9 @@ def process_request():
 
     max_duration = 300
     times_list = [ [int(start), int(end)] for start, end in number_pairs if int(end) - int(start) <= max_duration ]
-    
-    return jsonify({"times": times_list})
+    sentiment = get_sentiment(transcript) 
+    print("SENTIMENT: ", sentiment)
+    return jsonify({"times": times_list, "sentiment": sentiment})
 
 if __name__ == "__main__":
     app.run(debug=True)
